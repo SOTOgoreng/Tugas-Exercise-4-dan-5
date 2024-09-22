@@ -1,0 +1,123 @@
+package Hewanduva;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+abstract class Animal {
+    String name;
+
+    Animal(String name) {
+        this.name = name;
+    }
+
+    public abstract void move();
+
+    public abstract String getType();
+}
+
+class Bird extends Animal {
+    Bird(String name) {
+        super(name);
+    }
+
+    @Override
+    public void move() {
+        System.out.println(name + " is flying in the sky");
+    }
+
+    @Override
+    public String getType() {
+        return "Bird";
+    }
+}
+
+class Insect extends Animal {
+    boolean hasWings;
+
+    Insect(String name, boolean hasWings) {
+        super(name);
+        this.hasWings = hasWings;
+    }
+
+    @Override
+    public void move() {
+        if (hasWings) {
+            System.out.println(name + " is flying");
+        } else {
+            System.out.println(name + " is crawling");
+        }
+    }
+
+    @Override
+    public String getType() {
+        return "Insect";
+    }
+}
+
+class Fish extends Animal {
+    Fish(String name) {
+        super(name);
+    }
+
+    @Override
+    public void move() {
+        System.out.println(name + " is swimming in water");
+    }
+
+    @Override
+    public String getType() {
+        return "Fish";
+    }
+}
+
+class FourLeggedAnimal extends Animal {
+    FourLeggedAnimal(String name) {
+        super(name);
+    }
+
+    @Override
+    public void move() {
+        System.out.println(name + " is walking on four legs");
+    }
+
+    @Override
+    public String getType() {
+        return "Four-Legged Animal";
+    }
+}
+
+public class Hewanduwa {
+    public static void main(String[] args) {
+        List<Animal> animals = new ArrayList<>();
+
+        // Adding animals
+        animals.add(new Bird("Swift (Eagle)"));
+        animals.add(new Bird("Herman (Hawk)"));
+        animals.add(new Insect("Aaron (Ant)", false));
+        animals.add(new Insect("Beatle (Bug)", true));
+        animals.add(new Fish("Goldie (Goldfish)"));
+        animals.add(new Fish("Angel (Goldfish)"));
+        animals.add(new FourLeggedAnimal("Smudge (Dog)"));
+        animals.add(new FourLeggedAnimal("Tora (Tiger)"));
+        animals.add(new FourLeggedAnimal("Jack (Jaguar)"));
+
+        // Grouping animals by type
+        Map<String, List<String>> animalGroups = new HashMap<>();
+        for (Animal animal : animals) {
+            animalGroups.putIfAbsent(animal.getType(), new ArrayList<>());
+            animalGroups.get(animal.getType()).add(animal.name);
+        }
+
+        // Printing the results
+        for (Map.Entry<String, List<String>> entry : animalGroups.entrySet()) {
+            System.out.println(entry.getKey() + ": " + String.join(", ", entry.getValue()));
+        }
+
+        // Making the animals move
+        for (Animal animal : animals) {
+            animal.move();
+        }
+    }
+}
